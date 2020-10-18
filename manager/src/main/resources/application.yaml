@@ -1,0 +1,32 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        default_schema: ${DB_SCHEMA}
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  cloud:
+    stream:
+      bindings:
+        urlStatusOutputChannel:
+          destination: url-status
+          binder: rabbit
+      binders:
+        rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: ${RABBIT_HOST}
+                port: ${RABBIT_PORT}
+                username: ${RABBIT_USERNAME}
+                password: ${RABBIT_PASSWORD}
+                virtual-host: /
+
+
